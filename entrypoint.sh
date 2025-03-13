@@ -15,5 +15,5 @@ cp common_example.properties /app/common_local.properties
 # Update **all** database connection strings dynamically
 sed -i "s|jdbc:mysql://[0-9.]*:3306/|jdbc:mysql://$DOCKER_HOST_IP:3306/|g" /app/common_local.properties
 
-# Use entrypoint script (this ensures ENV_VAR is available)
-ENTRYPOINT ["/entrypoint.sh"]
+# Run the application with the correct profile
+exec mvn spring-boot:run -Dspring-boot.run.profiles=${ENV_VAR}
